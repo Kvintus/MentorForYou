@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import Button from '@material-ui/core/Button';
+
 
 class App extends Component {
+   state = {
+    name: "Jakob"
+  };
   render () {
     return (
-      <h3>jebe uz</h3>
+      <div>
+        <h3>Welcome {this.state.name}</h3>
+        <Button variant="contained" color="primary">Helo</Button>
+      </div>
     )
   }
 }

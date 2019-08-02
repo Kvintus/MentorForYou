@@ -9,8 +9,27 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.react('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+
+// mix.react('resources/js/app.js', 'public/js')
+//     .sass('resources/sass/app.scss', 'public/css');
+
+    mix
+  .js("resources/js/app.js", "public/js")
+  .sass("resources/sass/app.scss", "public/css")
+  .webpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          loader: "ts-loader",
+          exclude: /node_modules/
+        }
+      ]
+    },
+    resolve: {
+      extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"]
+    }
+  });
 
 // Per this issue: https://github.com/JeffreyWay/laravel-mix/issues/1483
 Mix.listen('configReady', (webpackConfig) => {
@@ -37,3 +56,5 @@ Mix.listen('configReady', (webpackConfig) => {
 
     console.log(webpackConfig.output);
 });
+
+mix.browserSync('localhost:8000');
